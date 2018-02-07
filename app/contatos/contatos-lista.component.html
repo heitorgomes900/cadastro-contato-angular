@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <h2>Meus Contatos</h2>
+            <div [ngClass]="classesCss" role="alert" *ngIf="mensagem" >
+                <span [ngSwitch]="mensagem.tipo">
+                    <strong *ngSwitchCase="'danger'">Erro!</strong>
+                    <strong *ngSwitchCase="'warning'">Alerta!</strong>
+                    <strong *ngSwitchCase="'success'">OK!</strong>
+                    <strong *ngSwitchDefault>Informação!</strong>
+                </span>
+                {{ mensagem.texto }}
+              </div>
+            <a routerLink="/contato/save" class="btn btn-success">Novo</a>
+
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Telefone</th>
+                        <th>Deletar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="4" align="center" *ngIf="contatos.length == 0">
+                            Nenhum registro encontrado!
+                        </td>
+                    </tr>
+                    <tr *ngFor="let contato of contatos"  [routerLink]="['/contato/save', contato.id]">
+                        <td>{{contato.nome}}</td>
+                        <td>{{contato.email}}</td>
+                        <td>{{contato.telefone}}</td>
+                        <td>
+                            <button class="btn btn-danger" (click)="onDelete(contato); $event.stopPropagation()"> Deletar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
